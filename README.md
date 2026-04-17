@@ -1,17 +1,17 @@
 # Phong 光照模型实验（Taichi 实现）
 
-## 📌 项目简介
+## 项目简介
 
 本项目基于 Taichi 实现了经典的 **Phong 光照模型**，通过光线投射（Ray Casting）渲染三维场景中的球体与圆锥，并实现了交互式参数调节。同时，在基础模型上扩展实现了：
 
-* ⭐ Blinn-Phong 高光模型
-* ⭐ 硬阴影（Hard Shadow）
+* Blinn-Phong 高光模型
+* 硬阴影（Hard Shadow）
 
 实现了更加真实的光照效果。
 
 ---
 
-## 🎯 实验目标
+## 实验目标
 
 * 理解局部光照模型（Ambient / Diffuse / Specular）
 * 掌握三维向量计算（法向量、光照方向、视线方向）
@@ -20,55 +20,47 @@
 
 ---
 
-## 🧠 实验原理
+## 实验原理
 
 Phong 光照模型由三部分组成：
 
-[
-I = I_{ambient} + I_{diffuse} + I_{specular}
-]
+$$I = I_{ambient} + I_{diffuse} + I_{specular}$$
 
-### 1️⃣ 环境光（Ambient）
+### 1 环境光（Ambient）
 
 模拟环境中的背景光：
 
-[
-I_{ambient} = K_a \cdot C_{light} \cdot C_{object}
-]
+$$I_{ambient} = K_a \cdot C_{light} \cdot C_{object}$$
 
 ---
 
-### 2️⃣ 漫反射（Diffuse）
+### 2 漫反射（Diffuse）
 
 基于 Lambert 定律：
 
-[
-I_{diffuse} = K_d \cdot \max(0, N \cdot L) \cdot C_{light} \cdot C_{object}
-]
+$$I_{diffuse} = K_d \cdot \max(0, N \cdot L) \cdot C_{light} \cdot C_{object}$$
 
 ---
 
-### 3️⃣ 镜面高光（Specular）
+### 3 镜面高光（Specular）
 
 传统 Phong：
 
-[
-I_{specular} = K_s \cdot \max(0, R \cdot V)^n
-]
+$$I_{specular} = K_s \cdot \max(0, R \cdot V)^n$$
 
 ---
 
-## 🏗️ 场景构建（必做）
+## 场景构建
 
 ### 几何体
 
-* 🔴 球体
+* 球体
 
   * 中心：(-1.2, -0.2, 0)
   * 半径：1.2
   * 颜色：(0.8, 0.1, 0.1)
 
-* 🟣 圆锥
+* 圆锥
 
   * 顶点：(1.2, 1.2, 0)
   * 底面：y = -1.4
@@ -85,7 +77,7 @@ I_{specular} = K_s \cdot \max(0, R \cdot V)^n
 
 ---
 
-## 🔍 光线求交与深度测试（必做）
+## 光线求交与深度测试
 
 对每个像素发射射线：
 
@@ -95,7 +87,7 @@ I_{specular} = K_s \cdot \max(0, R \cdot V)^n
 
 ---
 
-## 🎨 光照模型实现（必做）
+## 光照模型实现
 
 在交点处计算：
 
@@ -119,7 +111,7 @@ ti.math.clamp(color, 0.0, 1.0)
 
 ---
 
-## 🎛️ UI 交互（必做）
+## UI 交互
 
 提供实时调节参数：
 
@@ -132,9 +124,9 @@ ti.math.clamp(color, 0.0, 1.0)
 
 ---
 
-# 🚀 选做内容
+# 选做内容
 
-## ⭐ 1. Blinn-Phong 模型
+## 1. Blinn-Phong 模型
 
 在本实验中，使用 **Blinn-Phong 模型**替代传统 Phong 高光计算。
 
@@ -142,9 +134,7 @@ ti.math.clamp(color, 0.0, 1.0)
 
 引入半程向量：
 
-[
-H = \frac{L + V}{|L + V|}
-]
+$$H = \frac{L + V}{|L + V|}$$
 
 代码实现：
 
@@ -165,7 +155,7 @@ spec = max(0.0, N.dot(H)) ** shininess
 
 ---
 
-## ⭐ 2. 硬阴影（Hard Shadow）
+## 2. 硬阴影（Hard Shadow）
 
 ### 实现方法
 
@@ -203,7 +193,7 @@ else:
 
 ---
 
-## 🧩 代码结构说明
+## 代码结构说明
 
 ```text
 .
@@ -221,7 +211,7 @@ else:
 
 ---
 
-## ⚙️ 运行方式
+## 运行方式
 
 ### 1 安装依赖
 
